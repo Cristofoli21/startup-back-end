@@ -98,5 +98,17 @@ public class TutorialController {
     }
 
     @DeleteMapping("/tutorial/published")
-    public
+    public ResponseEntity<List<Tutorial>> findByPublished(){
+        try {
+            List<Tutorial> tutorials = TutorialRepository.findByPublished(true);
+
+            if(tutorials.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return NEW ResponseEntity<>(tutorials,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTENAL_SERVER_ERROR);
+        }
+    }
 }
