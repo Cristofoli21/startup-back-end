@@ -1,4 +1,4 @@
-package com.bezkoder.spring.jpa.postgresql.controller;
+package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bezkoder.spring.jpa.postgresql.model.Tutorial;
-import com.bezkoder.spring.jpa.postgresql.repository.TutorialRepository;
+import com.example.demo.model.Tutorial;
+import com.example.demo.repository.TutorialRepository;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
 
 public class TutorialController {
     @Autowired
-    TutorialRepository TutorialRepository
+    TutorialRepository TutorialRepository;
 
     @GetMapping("/tutorials")
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false)String title){
@@ -54,7 +54,7 @@ public class TutorialController {
         Optional<Tutorial> tutorialData = TutorialRepository.findById(id);
 
         if(tutorialData.isPresent()){
-            return new ResponseEntity<>(tutorialData.get(),HttpStatus.Ok)
+            return new ResponseEntity<>(tutorialData.get(),HttpStatus.Ok);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -65,7 +65,7 @@ public class TutorialController {
     public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial){
         try{
             Tutorial _tutorial = TutorialRepository
-                    .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false))
+                    .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
             return new ResponseEntity<>(_tutorial,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTENAL_SERVER_ERROR);
@@ -97,18 +97,17 @@ public class TutorialController {
         }
     }
 
-    @DeleteMapping("/tutorial/published")
-    public ResponseEntity<List<Tutorial>> findByPublished(){
-        try {
-            List<Tutorial> tutorials = TutorialRepository.findByPublished(true);
+	@GetMapping("/tutorials/published")
+	public ResponseEntity<List<Tutorial>> findByPublished() {
+		try {
+			List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
 
-            if(tutorials.isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return NEW ResponseEntity<>(tutorials,HttpStatus.OK);
-        }
-        catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.INTENAL_SERVER_ERROR);
-        }
-    }
+			if (tutorials.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(tutorials, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

@@ -1,4 +1,4 @@
-package com.bezkoder.spring.jpa.postgrsql.model;
+package com.example.demo.model;
 
 import javax.persistence.*;
 
@@ -27,11 +27,11 @@ public class Tutorial {
     }
 
     public long getId(){
-        return id
+        return id;
     }
 
     public String getTitle(){
-        return title
+        return title;
     }
 
     public String getDescription(){
@@ -43,7 +43,7 @@ public class Tutorial {
     }
 
     public void setDescription(String description){
-        this.title = description
+        this.title = description;
     }
 
     public boolean isPublished(){
