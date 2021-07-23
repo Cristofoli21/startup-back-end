@@ -37,15 +37,15 @@ public class TutorialController {
             if(title == null)
             TutorialRepository.findAll().forEach(tutorials::add);
             else
-                TutorialRepository.findByTitleContaining(title).forEach(Tutorials::add);
+                TutorialRepository.findByTitleContaining(title).forEach(tutorials::add);
             
             if(tutorials.isEmpty()){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(tutorials, HttpStatus.Ok);
+            return new ResponseEntity<>(tutorials, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTENAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -54,7 +54,7 @@ public class TutorialController {
         Optional<Tutorial> tutorialData = TutorialRepository.findById(id);
 
         if(tutorialData.isPresent()){
-            return new ResponseEntity<>(tutorialData.get(),HttpStatus.Ok);
+            return new ResponseEntity<>(tutorialData.get(),HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -68,7 +68,7 @@ public class TutorialController {
                     .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
             return new ResponseEntity<>(_tutorial,HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTENAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -93,14 +93,14 @@ public class TutorialController {
             TutorialRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTENAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 	@GetMapping("/tutorials/published")
 	public ResponseEntity<List<Tutorial>> findByPublished() {
 		try {
-			List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
+			List<Tutorial> tutorials = TutorialRepository.findByPublished(true);
 
 			if (tutorials.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
