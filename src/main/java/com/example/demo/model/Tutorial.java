@@ -22,7 +22,7 @@ public class Tutorial {
 
     public Tutorial(String title, String description, boolean published){
         this.title = title;
-        this.description = description;
+    	this.description = description;
         this.published = published;
     }
 
@@ -43,7 +43,7 @@ public class Tutorial {
     }
 
     public void setDescription(String description){
-        this.title = description;
+        this.description = description;
     }
 
     public boolean isPublished(){
