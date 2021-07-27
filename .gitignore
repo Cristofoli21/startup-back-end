@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 .mvn
 bin/
-deploy/
+deploy
 target/
 
 ### STS ###
