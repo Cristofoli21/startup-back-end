@@ -4,7 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 .mvn
-/bin
+bin/
+deploy/
+target/
 
 ### STS ###
 .apt_generated
