@@ -31,7 +31,7 @@ public class TutorialController {
 
     @GetMapping("/")
     public ResponseEntity<List<Tutorial>> SendSignalToAWS(@RequestParam(required = false)String title){
-        return "hi";
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 
     @GetMapping("/tutorials")
