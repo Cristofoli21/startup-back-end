@@ -30,7 +30,7 @@ public class TutorialController {
     TutorialRepository TutorialRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false)String title){
+    public ResponseEntity<List<Tutorial>> SendSignalToAWS(@RequestParam(required = false)String title){
         try{
             List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
