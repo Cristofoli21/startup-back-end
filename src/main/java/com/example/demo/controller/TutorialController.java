@@ -31,22 +31,7 @@ public class TutorialController {
 
     @GetMapping("/")
     public ResponseEntity<List<Tutorial>> SendSignalToAWS(@RequestParam(required = false)String title){
-        try{
-            List<Tutorial> tutorials = new ArrayList<Tutorial>();
-
-            if(title == null)
-            TutorialRepository.findAll().forEach(tutorials::add);
-            else
-                TutorialRepository.findByTitleContaining(title).forEach(tutorials::add);
-            
-            if(tutorials.isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>(tutorials, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return "hi";
     }
 
     @GetMapping("/tutorials")
