@@ -30,15 +30,19 @@ public class TutorialController {
     TutorialRepository TutorialRepository;
 
     @GetMapping("/")
-    public ResponseEntity<List<Tutorial>> SendSignalToAWS(@RequestParam(required = false)String title){
-        return new ResponseEntity<>( HttpStatus.OK);
+    public ResponseEntity<String> getHello(){
+        System.out.println("Hello World");
+        return new ResponseEntity<>("Hello world", HttpStatus.OK);
     }
+ 
 
     @GetMapping("/tutorials")
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false)String title){
         try{
             List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
+            System.out.println(title);
+            
             if(title == null)
             TutorialRepository.findAll().forEach(tutorials::add);
             else
