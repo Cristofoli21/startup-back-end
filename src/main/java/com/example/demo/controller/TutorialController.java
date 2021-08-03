@@ -31,7 +31,9 @@ public class TutorialController {
 
     @GetMapping("/")
     public ResponseEntity<String> getHello(){
-        System.out.println("Hello World");
+        System.out.println("Hello World tutorials");
+        
+        
         return new ResponseEntity<>("Hello world", HttpStatus.OK);
     }
  
