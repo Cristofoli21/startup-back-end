@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Tutorial;
 import com.example.demo.repository.TutorialRepository;
 
-@CrossOrigin(origins = "http://localhost:9090")
+@CrossOrigin(origins = "ec2-18-230-154-138.sa-east-1.compute.amazonaws.com:9090")
 @RestController
 @RequestMapping("/api")
 
