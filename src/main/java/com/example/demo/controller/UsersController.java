@@ -28,27 +28,19 @@ import com.example.demo.repository.UsersRepository;
 public class UsersController {
     @Autowired
     UsersRepository UsersRepository;
-
-    @GetMapping("/")
-    public ResponseEntity<String> getHello(){
-        System.out.println("Hello World tutorials");
-        
-        
-        return new ResponseEntity<>("Hello world", HttpStatus.OK);
-    }
  
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false)String name){
+    public ResponseEntity<List<Users>> getAllUsers(@RequestParam(required = false)String name){
         try{
-            List<User> users = new ArrayList<Users>();
+            List<Users> users = new ArrayList<Users>();
 
             System.out.println(name);
             
             if(name == null)
-            UsersTutorial.findAll().forEach(users::add);
+            UsersRepository.findAll().forEach(users::add);
             else
-                UsersTutorial.findByNameContaining(name).forEach(users::add);
+                UsersRepository.findByName(name).forEach(users::add);
             
             if(users.isEmpty()){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -62,7 +54,7 @@ public class UsersController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<Users> getUsersById(@PathVariable("id") long id){
-        Optional<Users> usersData = TutorialRepository.findById(id);
+        Optional<Users> usersData = UsersRepository.findById(id);
 
         if(usersData.isPresent()){
             return new ResponseEntity<>(usersData.get(),HttpStatus.OK);
@@ -76,7 +68,7 @@ public class UsersController {
     public ResponseEntity<Users> createUsers(@RequestBody Users users){
         try{
             Users _users = UsersRepository
-                    .save(new Users(users.getName(), tutorial.getAge(), false));
+                    .save(new Users(users.getName(), users.getAge(), false));
             return new ResponseEntity<>(_users,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -89,9 +81,9 @@ public class UsersController {
 
         if (usersData.isPresent()){
             Users _users = usersData.get();
-            _users.setTitle(users.getTitle());
-            _users.setDescription(users.getDescription());
-            _users.setPublished(users.isPublished());
+            _users.setName(users.getName());
+            _users.setAge(users.getAge());
+            _users.setVerified(users.isVerified());
             return new ResponseEntity<>(UsersRepository.save(_users),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

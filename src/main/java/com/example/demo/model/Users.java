@@ -26,7 +26,7 @@ public class Users {
         this.verified = verified;
     }
 
-    public long getVerified(){
+    public boolean getVerified(){
         return verified;
     }
 
