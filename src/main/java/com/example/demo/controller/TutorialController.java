@@ -34,7 +34,7 @@ public class TutorialController {
         System.out.println("Hello World tutorials");
         
         
-        return new ResponseEntity<>("Hello world", HttpStatus.OK);
+        return new ResponseEntity< >("Hello world", HttpStatus.OK);
     }
  
 
