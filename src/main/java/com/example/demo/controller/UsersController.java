@@ -115,7 +115,7 @@ public class UsersController {
 	}
 
     @GetMapping("/users/verified2")
-	public ResponseEntity<List<Users>> findByVerified() {
+	public ResponseEntity<List<Users>> findByVerified2() {
 		try {
 			List<Users> users = UsersRepository.findByVerified(true);
 
