@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - echo "Entered build phase"
-      - mvn jar -xvf projectname.war *
+      - jar -xvf projectname.war *
   # post_build:
   #   commands:
   #     - echo "Entered the post-build phase"
