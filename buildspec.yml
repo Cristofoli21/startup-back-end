@@ -14,4 +14,4 @@ phases:
   #     - mv target/deploy ./
 artifacts:
   files:
-    - ./projectname.war
+    - projectname.war
