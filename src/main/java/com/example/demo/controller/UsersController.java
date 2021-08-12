@@ -23,7 +23,7 @@ import com.example.demo.repository.UsersRepository;
 
 // @CrossOrigin(origins = "ec2-18-230-154-138.sa-east-1.compute.amazonaws.com:9090")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 
 public class UsersController {
     @Autowired
