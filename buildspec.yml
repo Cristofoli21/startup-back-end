@@ -8,10 +8,10 @@ phases:
     commands:
       - echo "Entered build phase"
       - mvn clean prepare-package war:exploded
-  post_build:
-    commands:
-      - echo "Entered the post-build phase"
-      - mv /codebuild/output/src714632529/src/target/deploy/WEB-INF/lib/demo-0.0.1-SNAPSHOT.jar ./
+  # post_build:
+    # commands:
+    #   - echo "Entered the post-build phase"
+    #   - mv /codebuild/output/src714632529/src/target/deploy/WEB-INF/lib/demo-0.0.1-SNAPSHOT.jar ./
 artifacts:
   files:
     - demo-0.0.1-SNAPSHOT.jar
