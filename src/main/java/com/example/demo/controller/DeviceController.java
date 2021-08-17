@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Devices;
-import com.example.demo.repository.DeviceRepository;
+import com.example.demo.repository.DevicesRepository;
 
 @RestController
 @RequestMapping("/api")
 
 public class DeviceController {
     @Autowired
-    DeviceRepository DeviceRepository;
+    DevicesRepository DevicesRepository;
  
 
     @GetMapping("/devices")
@@ -36,11 +36,11 @@ public class DeviceController {
             System.out.println(name);
             
             if(name == null)
-            DevicesRepository.findAll().forEach(Devices::add);
+            DevicesRepository.findAll().forEach(devices::add);
             else
-            	DevicesRepository.findByName(name).forEach(Devices::add);
+            	DevicesRepository.findByName(name).forEach(devices::add);
             
-            if(Devices.isEmpty()){
+            if(devices.isEmpty()){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
@@ -52,7 +52,7 @@ public class DeviceController {
 
     @GetMapping("/devices/{id}")
     public ResponseEntity<Devices> getDevicesById(@PathVariable("id") long id){
-        Optional<Devices> devicesData = DeviceRepository.findById(id);
+        Optional<Devices> devicesData = DevicesRepository.findById(id);
 
         if(devicesData.isPresent()){
             return new ResponseEntity<>(devicesData.get(),HttpStatus.OK);
@@ -65,8 +65,8 @@ public class DeviceController {
     @PostMapping("/devices")
     public ResponseEntity<Devices> createDevice(@RequestBody Devices devices){
         try{
-            Devices _devices = DeviceRepository
-                    .save(new Devices(devices.getName(), devices.getPrice())));
+            Devices _devices = DevicesRepository
+                    .save(new Devices(devices.getName(), devices.getPrice()));
             return new ResponseEntity<>(_devices,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -79,9 +79,9 @@ public class DeviceController {
 
         if (devicesData.isPresent()){
             Devices _devices = devicesData.get();
-            _devices.setName(users.getName());
-            _devices.setPrice(users.getPrice());;
-            return new ResponseEntity<>(DeviceRepository.save(_devices),HttpStatus.OK);
+            _devices.setName(devices.getName());
+            _devices.setPrice(devices.getPrice());;
+            return new ResponseEntity<>(DevicesRepository.save(_devices),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -90,7 +90,7 @@ public class DeviceController {
     @DeleteMapping("/devices/{id}")
     public ResponseEntity<HttpStatus> deleteDevices(@PathVariable("id") long id){
         try {
-            DeviceRepository.deleteById(id);
+            DevicesRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
