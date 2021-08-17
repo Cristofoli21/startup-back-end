@@ -66,63 +66,35 @@ public class DeviceController {
     public ResponseEntity<Devices> createDevice(@RequestBody Devices devices){
         try{
             Devices _devices = DeviceRepository
-                    .save(new Users(users.getName(), users.getAge(), false));
-            return new ResponseEntity<>(_users,HttpStatus.CREATED);
+                    .save(new Devices(devices.getName(), devices.getPrice())));
+            return new ResponseEntity<>(_devices,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<Users> updateUsers(@PathVariable("id") long id, @RequestBody Users users){
-        Optional<Users> usersData = UsersRepository.findById(id);
+    @PutMapping("/devices/{id}")
+    public ResponseEntity<Devices> updateDevices(@PathVariable("id") long id, @RequestBody Devices devices){
+        Optional<Devices> devicesData = DevicesRepository.findById(id);
 
-        if (usersData.isPresent()){
-            Users _users = usersData.get();
-            _users.setName(users.getName());
-            _users.setAge(users.getAge());
-            _users.setVerified(users.isVerified());
-            return new ResponseEntity<>(UsersRepository.save(_users),HttpStatus.OK);
+        if (devicesData.isPresent()){
+            Devices _devices = devicesData.get();
+            _devices.setName(users.getName());
+            _devices.setPrice(users.getPrice());;
+            return new ResponseEntity<>(DeviceRepository.save(_devices),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUsers(@PathVariable("id") long id){
+    @DeleteMapping("/devices/{id}")
+    public ResponseEntity<HttpStatus> deleteDevices(@PathVariable("id") long id){
         try {
-            UsersRepository.deleteById(id);
+            DeviceRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-	@GetMapping("/users/verified")
-	public ResponseEntity<List<Users>> findByVerified() {
-		try {
-			List<Users> users = UsersRepository.findByVerified(true);
-
-			if (users.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-    @GetMapping("/users/verified2")
-	public ResponseEntity<List<Users>> findByVerified2() {
-		try {
-			List<Users> users = UsersRepository.findByVerified(true);
-
-			if (users.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 }
