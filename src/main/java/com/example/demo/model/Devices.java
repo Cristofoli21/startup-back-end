@@ -22,7 +22,11 @@ public class Devices {
         this.name = name;
     	this.price = price;
     }
-
+    
+    public long getId(){
+        return id;
+    }
+    
     public String getName(){
         return name;
     }

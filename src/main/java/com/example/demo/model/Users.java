@@ -26,6 +26,10 @@ public class Users {
         this.verified = verified;
     }
 
+    public long getId(){
+        return id;
+    }
+
     public boolean getVerified(){
         return verified;
     }
